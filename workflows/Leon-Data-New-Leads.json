@@ -1,0 +1,396 @@
+{
+  "createdAt": "2025-08-25T15:39:16.569Z",
+  "updatedAt": "2025-12-08T17:10:29.000Z",
+  "id": "HeLM2xgJUp6xIhzW",
+  "name": "Leon Data New Leads",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "757696ce-983f-4817-9c13-1717a6a880e3",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "69f8f0ca-1573-4059-b7da-9cb2fef99157",
+      "name": "Webhook",
+      "webhookId": "757696ce-983f-4817-9c13-1717a6a880e3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1GhPvbGfeCO7QLxRvgF_UI8zO0fk0OVC9W1TDBVQ6mn8/edit?pli=1&gid=1495598965#gid=1495598965",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1495598965,
+          "mode": "list",
+          "cachedResultName": "Lead Tracking Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GhPvbGfeCO7QLxRvgF_UI8zO0fk0OVC9W1TDBVQ6mn8/edit#gid=1495598965"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "10kPromo": "0",
+            "id": "={{ $json.body.record.id }}",
+            "date": "={{ $now.format('yyyy-MM-dd') }}",
+            "phone": "={{ $json.body.record.phone }}",
+            "name": "={{ $json.body.record.name }}",
+            "email": "={{ $json.body.record.email }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Booked Call",
+              "displayName": "Booked Call",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Showed",
+              "displayName": "Showed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Closed",
+              "displayName": "Closed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "10kPromo",
+              "displayName": "10kPromo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "notes",
+              "displayName": "notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Total Data",
+              "displayName": "Total Data",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "ea88d545-6bbc-4ac9-afda-90c39fcbbc97",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OEAr0f6jTzvrSqB8",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "support@leonsdata.com",
+        "subject": "=New Leon Data Lead {{ $json.firstName }}",
+        "message": "=<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>New Lead Notification</title>\n    <!-- Use inline CSS for maximum email client compatibility. This style block is for demonstration and responsive design. -->\n    <style>\n        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');\n        \n        body {\n            margin: 0;\n            padding: 0;\n            font-family: 'Inter', Arial, sans-serif;\n            background-color: #f7f9fc;\n            color: #333;\n            line-height: 1.6;\n        }\n        \n        /* A responsive container that centers the email content */\n        .container {\n            max-width: 600px;\n            margin: 40px auto;\n            padding: 20px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);\n        }\n\n        .header {\n            text-align: center;\n            padding-bottom: 20px;\n            border-bottom: 2px solid #e2e8f0;\n            margin-bottom: 20px;\n        }\n\n        .header h1 {\n            font-size: 24px;\n            font-weight: 600;\n            color: #1e3a8a;\n            margin: 0;\n        }\n\n        .lead-info {\n            padding: 20px;\n        }\n\n        .lead-info p {\n            font-size: 16px;\n            margin: 10px 0;\n        }\n\n        .label {\n            font-weight: 600;\n            color: #4a5568;\n            display: inline-block;\n            width: 80px;\n        }\n\n        .data {\n            color: #1a202c;\n            word-wrap: break-word; /* Prevents long emails/names from breaking the layout */\n        }\n        \n        .cta-button-container {\n            text-align: center;\n            margin-top: 30px;\n        }\n\n        .cta-button {\n            display: inline-block;\n            background-color: #1e3a8a;\n            color: #ffffff;\n            padding: 12px 24px;\n            border-radius: 8px;\n            text-decoration: none;\n            font-weight: 600;\n        }\n        \n        /* Responsive adjustments for smaller screens */\n        @media only screen and (max-width: 620px) {\n            .container {\n                width: 100% !important;\n                border-radius: 0 !important;\n                margin: 0 !important;\n                box-shadow: none !important;\n            }\n        }\n    </style>\n</head>\n<body style=\"margin: 0; padding: 0; font-family: 'Inter', Arial, sans-serif; background-color: #f7f9fc; color: #333; line-height: 1.6;\">\n    <!-- Main container table for robust email layout -->\n    <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n        <tr>\n            <td align=\"center\">\n                <div class=\"container\" style=\"max-width: 600px; margin: 40px auto; padding: 20px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);\">\n                    <!-- Header section -->\n                    <div class=\"header\" style=\"text-align: center; padding-bottom: 20px; border-bottom: 2px solid #e2e8f0; margin-bottom: 20px;\">\n                        <h1 style=\"font-size: 24px; font-weight: 600; color: #1e3a8a; margin: 0;\">New Lead Notification</h1>\n                    </div>\n                    \n                    <!-- Lead information section -->\n                    <div class=\"lead-info\" style=\"padding: 20px;\">\n                        <p style=\"font-size: 16px; margin: 10px 0;\">Hello team,</p>\n                        <p style=\"font-size: 16px; margin: 10px 0;\">You've received a new lead through your website!</p>\n                        \n                        <p style=\"font-size: 16px; margin: 10px 0;\"><strong style=\"font-weight: 600; color: #4a5568;\">Name:</strong> <span style=\"color: #1a202c;\">{{ $json.firstName }}</span></p>\n                        <p style=\"font-size: 16px; margin: 10px 0;\"><strong style=\"font-weight: 600; color: #4a5568;\">Email:</strong> <span style=\"color: #1a202c;\">{{ $json.email }}</span></p>\n                        <p style=\"font-size: 16px; margin: 10px 0;\"><strong style=\"font-weight: 600; color: #4a5568;\">Phone:</strong> <span style=\"color: #1a202c;\">{{ $json.phone }}</span></p>\n                    </div>\n\n                    <!-- Call-to-Action button -->\n                    <div class=\"cta-button-container\" style=\"text-align: center; margin-top: 30px;\">\n                        <a href=\"https://docs.google.com/spreadsheets/d/1mtL2BTRkNbX_3bjRhsG7M6ik-fHU9DMguqRTvbPTQ20/edit?gid=0#gid=0\" class=\"cta-button\" style=\"display: inline-block; background-color: #1e3a8a; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;\">View Lead Details</a>\n                    </div>\n\n                </div>\n            </td>\n        </tr>\n    </table>\n</body>\n</html>\n",
+        "options": {
+          "ccList": "thadswift@gmail.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "12bf6c60-2da6-49c7-9eb9-1768237677b5",
+      "name": "Gmail1",
+      "webhookId": "8d8f4ac6-f8a3-4d69-83cd-f8189dd95a0c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "UGGMvOYtEC2plLFZ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "email": "={{ $json.email }}",
+        "phone": "={{ $json.phone.replace(/\\D/g, '') }}",
+        "additionalFields": {
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "N4qKzmFH0P80USMV9Rci",
+                  "mode": "list",
+                  "cachedResultName": "outbound marketing status"
+                },
+                "fieldValue": "={{ $('Webhook').item.json.body.record.outbound_marketing_status }}"
+              }
+            ]
+          },
+          "name": "={{ $json.name }}",
+          "source": "Meta Ads",
+          "notes": "={{ $('Webhook').item.json.body.record.outbound_marketing_status }}",
+          "tags": "Website Lead"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "1d6d44b9-bac0-4920-8891-0ba122d9c337",
+      "name": "Create or update a contact1",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "VZhXjZWB1w8sKbCt",
+          "name": "HighLevel account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Create or update a contact1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a contact1": {
+      "main": [
+        [
+          {
+            "node": "Gmail1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "leon-data-n8n.el1i26.easypanel.host",
+            "user-agent": "pg_net/0.14.0",
+            "content-length": "341",
+            "accept": "*/*",
+            "content-type": "application/json",
+            "x-forwarded-for": "3.17.20.33",
+            "x-forwarded-host": "leon-data-n8n.el1i26.easypanel.host",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "ebf172430786",
+            "x-real-ip": "3.17.20.33",
+            "accept-encoding": "gzip"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "type": "INSERT",
+            "table": "leons_data_submissions",
+            "record": {
+              "id": 231,
+              "name": "Fred Levy",
+              "email": "nextlevelinvestments86@gmail.com",
+              "phone": "9018018428",
+              "last_name": "Levy",
+              "created_at": "2025-12-01T13:21:05.584276+00:00",
+              "first_name": "Fred",
+              "outbound_marketing_status": "6+-callers"
+            },
+            "schema": "public",
+            "old_record": null
+          },
+          "webhookUrl": "https://leon-data-n8n.el1i26.easypanel.host/webhook/757696ce-983f-4817-9c13-1717a6a880e3",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "versionId": "61eb9c1f-cb80-4f03-80b8-1feb05b165dd",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-25T15:39:16.600Z",
+      "updatedAt": "2025-08-25T15:39:16.600Z",
+      "role": "workflow:owner",
+      "workflowId": "HeLM2xgJUp6xIhzW",
+      "projectId": "Uvq5WhjzJzJxoVHc",
+      "project": {
+        "createdAt": "2025-08-25T15:31:14.247Z",
+        "updatedAt": "2025-09-16T00:16:21.457Z",
+        "id": "Uvq5WhjzJzJxoVHc",
+        "name": "Sergio Gonzalez <sergiog@lubaphtel.net>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-08-25T15:31:14.248Z",
+            "updatedAt": "2025-08-25T15:31:14.248Z",
+            "userId": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
+            "projectId": "Uvq5WhjzJzJxoVHc",
+            "user": {
+              "createdAt": "2025-08-25T15:31:12.351Z",
+              "updatedAt": "2026-01-20T01:15:47.000Z",
+              "id": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
+              "email": "sergiog@lubaphtel.net",
+              "firstName": "Sergio",
+              "lastName": "Gonzalez",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2025-08-25T15:32:30.088Z",
+                "personalization_survey_n8n_version": "1.79.3"
+              },
+              "settings": {
+                "userActivated": true,
+                "firstSuccessfulWorkflowId": "HeLM2xgJUp6xIhzW",
+                "userActivatedAt": 1756218253276,
+                "npsSurvey": {
+                  "responded": true,
+                  "lastShownAt": 1759238614945
+                },
+                "easyAIWorkflowOnboarded": true
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2026-01-19",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": []
+}
