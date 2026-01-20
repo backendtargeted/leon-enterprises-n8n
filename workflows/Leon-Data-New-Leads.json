@@ -362,7 +362,7 @@
             "projectId": "Uvq5WhjzJzJxoVHc",
             "user": {
               "createdAt": "2025-08-25T15:31:12.351Z",
-              "updatedAt": "2026-01-20T01:15:47.000Z",
+              "updatedAt": "2026-01-20T13:57:07.000Z",
               "id": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
               "email": "sergiog@lubaphtel.net",
               "firstName": "Sergio",
@@ -384,7 +384,7 @@
               },
               "disabled": false,
               "mfaEnabled": false,
-              "lastActiveAt": "2026-01-19",
+              "lastActiveAt": "2026-01-20",
               "isPending": false
             }
           }
