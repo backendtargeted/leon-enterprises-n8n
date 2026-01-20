@@ -1,0 +1,411 @@
+{
+  "createdAt": "2025-11-04T12:32:35.278Z",
+  "updatedAt": "2025-12-14T18:25:40.000Z",
+  "id": "pdXfOkb8NQ5SHECI",
+  "name": "Leon Enterprises New Leads",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "8a986f06-d3c4-4856-b5c0-a35528c4da0f",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a7bc5478-455c-4466-aea1-36d21402b3ca",
+      "name": "Webhook",
+      "webhookId": "8a986f06-d3c4-4856-b5c0-a35528c4da0f"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1qojrWDnsrX7fugAwgqKH6But0416QnFBU_SpCvvWCSo/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1495598965,
+          "mode": "list",
+          "cachedResultName": "Lead Tracking Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qojrWDnsrX7fugAwgqKH6But0416QnFBU_SpCvvWCSo/edit#gid=1495598965"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lead id": "={{ $json.body.record.id }}",
+            "phone": "={{ $json.body.record.phone }}",
+            "name": "={{ $json.body.record.name }}",
+            "Address": "={{ $json.body.record.property_address }}",
+            " ": "={{ $now.format('yyyy-MM-dd') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": " ",
+              "displayName": " ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead id",
+              "displayName": "Lead id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ad ID",
+              "displayName": "Ad ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Booked Call",
+              "displayName": "Booked Call",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Showed",
+              "displayName": "Showed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Closed",
+              "displayName": "Closed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Total Data",
+              "displayName": "Total Data",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "12718c3d-3d9c-4051-9cff-6d6c5d0e999f",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OEAr0f6jTzvrSqB8",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "sellnow@mrlioncashoffer.com",
+        "subject": "=New PPC Lead {{ $json.firstName }} - {{ $json.address1 }}",
+        "message": "=<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>New PPC Lead Notification</title>\n    <!-- Use inline CSS for maximum email client compatibility. This style block is for demonstration and responsive design. -->\n    <style>\n        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');\n        \n        body {\n            margin: 0;\n            padding: 0;\n            font-family: 'Inter', Arial, sans-serif;\n            background-color: #f7f9fc;\n            color: #333;\n            line-height: 1.6;\n        }\n        \n        /* A responsive container that centers the email content */\n        .container {\n            max-width: 600px;\n            margin: 40px auto;\n            padding: 20px;\n            background-color: #ffffff;\n            border-radius: 12px;\n            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);\n        }\n\n        .header {\n            text-align: center;\n            padding-bottom: 20px;\n            border-bottom: 2px solid #e2e8f0;\n            margin-bottom: 20px;\n        }\n\n        .header h1 {\n            font-size: 24px;\n            font-weight: 600;\n            color: #1e3a8a;\n            margin: 0;\n        }\n\n        .lead-info {\n            padding: 20px;\n        }\n\n        .lead-info p {\n            font-size: 16px;\n            margin: 10px 0;\n        }\n\n        .label {\n            font-weight: 600;\n            color: #4a5568;\n            display: inline-block;\n            width: 80px;\n        }\n\n        .data {\n            color: #1a202c;\n            word-wrap: break-word; /* Prevents long emails/names from breaking the layout */\n        }\n        \n        .cta-button-container {\n            text-align: center;\n            margin-top: 30px;\n        }\n\n        .cta-button {\n            display: inline-block;\n            background-color: #1e3a8a;\n            color: #ffffff;\n            padding: 12px 24px;\n            border-radius: 8px;\n            text-decoration: none;\n            font-weight: 600;\n        }\n        \n        /* Responsive adjustments for smaller screens */\n        @media only screen and (max-width: 620px) {\n            .container {\n                width: 100% !important;\n                border-radius: 0 !important;\n                margin: 0 !important;\n                box-shadow: none !important;\n            }\n        }\n    </style>\n</head>\n<body style=\"margin: 0; padding: 0; font-family: 'Inter', Arial, sans-serif; background-color: #f7f9fc; color: #333; line-height: 1.6;\">\n    <!-- Main container table for robust email layout -->\n    <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n        <tr>\n            <td align=\"center\">\n                <div class=\"container\" style=\"max-width: 600px; margin: 40px auto; padding: 20px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);\">\n                    <!-- Header section -->\n                    <div class=\"header\" style=\"text-align: center; padding-bottom: 20px; border-bottom: 2px solid #e2e8f0; margin-bottom: 20px;\">\n                        <h1 style=\"font-size: 24px; font-weight: 600; color: #1e3a8a; margin: 0;\">New Lead Notification</h1>\n                    </div>\n                    \n                    <!-- Lead information section -->\n                    <div class=\"lead-info\" style=\"padding: 20px;\">\n                        <p style=\"font-size: 16px; margin: 10px 0;\">Hello team,</p>\n                        <p style=\"font-size: 16px; margin: 10px 0;\">You've received a new lead through your website!</p>\n                        \n                        <p style=\"font-size: 16px; margin: 10px 0;\"><strong style=\"font-weight: 600; color: #4a5568;\">Name:</strong> <span style=\"color: #1a202c;\">{{ $json.name }}</span></p>\n                        <p style=\"font-size: 16px; margin: 10px 0;\"><strong style=\"font-weight: 600; color: #4a5568;\">Email:</strong> <span style=\"color: #1a202c;\">{{ $json.email }}</span></p>\n                        <p style=\"font-size: 16px; margin: 10px 0;\"><strong style=\"font-weight: 600; color: #4a5568;\">Phone:</strong> <span style=\"color: #1a202c;\">{{ $json.phone }}</span></p>\n                    </div>\n\n                    <!-- Call-to-Action button -->\n                    <div class=\"cta-button-container\" style=\"text-align: center; margin-top: 30px;\">\n                        <a href=\"https://docs.google.com/spreadsheets/d/1qojrWDnsrX7fugAwgqKH6But0416QnFBU_SpCvvWCSo/edit?pli=1&gid=1495598965#gid=1495598965\" class=\"cta-button\" style=\"display: inline-block; background-color: #1e3a8a; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;\">View Lead Details</a>\n                    </div>\n\n                </div>\n            </td>\n        </tr>\n    </table>\n</body>\n</html>\n",
+        "options": {
+          "ccList": "thadswift@gmail.com, flores44900@gmail.com"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "75bc703d-c130-4d65-bec1-e5d3965c8e5b",
+      "name": "Gmail",
+      "webhookId": "42d029c6-d220-40a2-ad2b-451c8afbc799",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "UGGMvOYtEC2plLFZ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "email": "={{ $json.email }}",
+        "phone": "={{ $json.phone }}",
+        "additionalFields": {
+          "address1": "={{ $json.Address }}",
+          "name": "={{ $json.name }}",
+          "source": "=ppc lead",
+          "tags": "ppclead"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "7b0ca68a-ae82-438c-acfe-42b1698b6361",
+      "name": "Create or update a contact",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "VZhXjZWB1w8sKbCt",
+          "name": "HighLevel account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.zapier.com/hooks/catch/24335284/ufd94pw/",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "first_name",
+              "value": "={{ $('Webhook').item.json.body.record.name }}"
+            },
+            {
+              "name": "email",
+              "value": "={{ $('Webhook').item.json.body.record.email }}"
+            },
+            {
+              "name": "phone",
+              "value": "={{ $('Webhook').item.json.body.record.phone }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        896,
+        0
+      ],
+      "id": "9c6bab2e-e7f7-4400-b199-033e96e4f06b",
+      "name": "HTTP Request"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Create or update a contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a contact": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "leon-data-n8n.el1i26.easypanel.host",
+            "user-agent": "pg_net/0.14.0",
+            "content-length": "254",
+            "accept": "*/*",
+            "content-type": "application/json",
+            "x-forwarded-for": "3.17.20.33",
+            "x-forwarded-host": "leon-data-n8n.el1i26.easypanel.host",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "ebf172430786",
+            "x-real-ip": "3.17.20.33",
+            "accept-encoding": "gzip"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "type": "INSERT",
+            "table": "re_submissions",
+            "record": {
+              "id": 9,
+              "name": "Kelly McCarthy McCarthy",
+              "phone": "7323280143",
+              "created_at": "2025-11-07T05:26:11.709527+00:00",
+              "property_address": "17 Robin street "
+            },
+            "schema": "public",
+            "old_record": null
+          },
+          "webhookUrl": "https://leon-data-n8n.el1i26.easypanel.host/webhook/8a986f06-d3c4-4856-b5c0-a35528c4da0f",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "versionId": "9526c5df-49a2-4d8d-8ee2-3bcd489d2871",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-11-04T12:32:35.292Z",
+      "updatedAt": "2025-11-04T12:32:35.292Z",
+      "role": "workflow:owner",
+      "workflowId": "pdXfOkb8NQ5SHECI",
+      "projectId": "Uvq5WhjzJzJxoVHc",
+      "project": {
+        "createdAt": "2025-08-25T15:31:14.247Z",
+        "updatedAt": "2025-09-16T00:16:21.457Z",
+        "id": "Uvq5WhjzJzJxoVHc",
+        "name": "Sergio Gonzalez <sergiog@lubaphtel.net>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-08-25T15:31:14.248Z",
+            "updatedAt": "2025-08-25T15:31:14.248Z",
+            "userId": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
+            "projectId": "Uvq5WhjzJzJxoVHc",
+            "user": {
+              "createdAt": "2025-08-25T15:31:12.351Z",
+              "updatedAt": "2026-01-20T01:15:47.000Z",
+              "id": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
+              "email": "sergiog@lubaphtel.net",
+              "firstName": "Sergio",
+              "lastName": "Gonzalez",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2025-08-25T15:32:30.088Z",
+                "personalization_survey_n8n_version": "1.79.3"
+              },
+              "settings": {
+                "userActivated": true,
+                "firstSuccessfulWorkflowId": "HeLM2xgJUp6xIhzW",
+                "userActivatedAt": 1756218253276,
+                "npsSurvey": {
+                  "responded": true,
+                  "lastShownAt": 1759238614945
+                },
+                "easyAIWorkflowOnboarded": true
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2026-01-19",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": []
+}
