@@ -1,0 +1,224 @@
+{
+  "createdAt": "2025-11-11T14:12:47.025Z",
+  "updatedAt": "2025-11-11T15:09:42.000Z",
+  "id": "e0uMcoqnX9iREY6E",
+  "name": "Leons Data Prequalify Form",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "QUESTIONS FOR LEONS DATA PROSPECTS",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "What is LeonsData?"
+            },
+            {
+              "fieldLabel": "Who does it serve?"
+            },
+            {
+              "fieldLabel": "How big is their of TEAM?"
+            },
+            {
+              "fieldLabel": "How many deals are they currently closing per month with Cold Calling/Sms?"
+            },
+            {
+              "fieldLabel": "What is their cost per lead right now?"
+            },
+            {
+              "fieldLabel": "What is their average deal size?"
+            },
+            {
+              "fieldLabel": "What are they paying for Data right now?"
+            },
+            {
+              "fieldLabel": "How accurate is the data that you are targetting right now?"
+            },
+            {
+              "fieldLabel": "What is their biggest challenge with DATA right now?"
+            },
+            {
+              "fieldLabel": "What dialers, CRM, or SMS platforms are you currently using?"
+            },
+            {
+              "fieldLabel": "In the next 6-12 months, do you plan on scaling your cold calling or sms operations further"
+            },
+            {
+              "fieldLabel": "Who is responsible for making  the final decision on Data purchases in your company?"
+            },
+            {
+              "fieldType": "html",
+              "html": "<h1>If clients are using AI Agents:</h1>\n\n\n"
+            },
+            {
+              "fieldLabel": "How are you are currently using Ai agents in your calling or SMS processes? Are they handling initial outreach, follow ups or something else?"
+            },
+            {
+              "fieldLabel": "What kind of training data do you use for your AI, and how do you ensure it stays compliant with TCPA or DNC regulations?"
+            },
+            {
+              "fieldLabel": "What metrics do you track to measure the effectiveness of your AI agents? For example, contact rates, conversion rates, or customer satisfaction?"
+            },
+            {
+              "fieldLabel": "How do you handle cases where the AI can’t resolve a leads question or needs to escalate to a human?"
+            },
+            {
+              "fieldLabel": "Have you tested Ai agents specifically with High Quality data like ours, and what improvements or challenges have you noticed?"
+            },
+            {
+              "fieldLabel": "Lead GHL email",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -384,
+        48
+      ],
+      "id": "593e53e8-b351-4ec5-b973-41d0b69ae070",
+      "name": "On form submission",
+      "webhookId": "602b9dff-2b7a-4dac-a2c3-894fd8eb647a"
+    },
+    {
+      "parameters": {
+        "email": "={{ $json['Lead GHL email'] }}",
+        "additionalFields": {
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "tOAaehvPkXwXa8MMgxw2",
+                  "mode": "list",
+                  "cachedResultName": "Qualifying Questions"
+                },
+                "fieldValue": "={{ $json.formattedData }}"
+              }
+            ]
+          }
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        16,
+        48
+      ],
+      "id": "dc325f57-40b6-4353-902f-a46ae79e1f25",
+      "name": "Create or update a contact",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "VZhXjZWB1w8sKbCt",
+          "name": "HighLevel account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * N8N Code Node Script: Formats a single JSON object (form submission data)\n * into a clean, multi-line string suitable for a contact's text field.\n * * Updated to remove the header, footer, and 'formMode' entry.\n */\nfor (const item of items) {\n  const data = item.json;\n  const lines = []; // Use an array to collect lines\n\n  // Iterate over all key-value pairs in the input data\n  for (const key in data) {\n    if (Object.hasOwnProperty.call(data, key)) {\n      const value = data[key];\n      let cleanKey = key;\n\n      // Skip the 'formMode' key as requested\n      if (key === 'formMode') {\n          continue; \n      }\n      \n      // Clean up common metadata keys for better display\n      if (key === 'submittedAt') {\n          cleanKey = 'Submission Timestamp';\n      } else if (key === 'Lead GHL email') {\n          cleanKey = 'Lead Email (GHL)';\n      }\n      \n      // Push the formatted line to the array\n      // Using trim() on the key just in case there are trailing spaces in the form names\n      lines.push(`${cleanKey.trim()}: ${value}`);\n    }\n  }\n\n  // Join the array lines with a newline character. \n  // This automatically removes the need for a header/footer or extra newlines.\n  const formattedText = lines.join('\\n');\n  \n  // Attach the final formatted string to the output item under a new property\n  // You will use this 'formattedData' property in your HighLevel node\n  item.json.formattedData = formattedText;\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        48
+      ],
+      "id": "aa154ac7-5dd5-412b-bb9d-cd1db23f527c",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Create or update a contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "571b4bd5-bc46-4421-b856-165430d1430a",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-11-11T14:12:47.035Z",
+      "updatedAt": "2025-11-11T14:12:47.035Z",
+      "role": "workflow:owner",
+      "workflowId": "e0uMcoqnX9iREY6E",
+      "projectId": "Uvq5WhjzJzJxoVHc",
+      "project": {
+        "createdAt": "2025-08-25T15:31:14.247Z",
+        "updatedAt": "2025-09-16T00:16:21.457Z",
+        "id": "Uvq5WhjzJzJxoVHc",
+        "name": "Sergio Gonzalez <sergiog@lubaphtel.net>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-08-25T15:31:14.248Z",
+            "updatedAt": "2025-08-25T15:31:14.248Z",
+            "userId": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
+            "projectId": "Uvq5WhjzJzJxoVHc",
+            "user": {
+              "createdAt": "2025-08-25T15:31:12.351Z",
+              "updatedAt": "2026-01-20T01:15:47.000Z",
+              "id": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
+              "email": "sergiog@lubaphtel.net",
+              "firstName": "Sergio",
+              "lastName": "Gonzalez",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2025-08-25T15:32:30.088Z",
+                "personalization_survey_n8n_version": "1.79.3"
+              },
+              "settings": {
+                "userActivated": true,
+                "firstSuccessfulWorkflowId": "HeLM2xgJUp6xIhzW",
+                "userActivatedAt": 1756218253276,
+                "npsSurvey": {
+                  "responded": true,
+                  "lastShownAt": 1759238614945
+                },
+                "easyAIWorkflowOnboarded": true
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2026-01-19",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": []
+}
