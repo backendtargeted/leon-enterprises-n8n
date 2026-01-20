@@ -1,0 +1,339 @@
+{
+  "createdAt": "2025-09-15T19:34:49.833Z",
+  "updatedAt": "2025-09-15T20:44:08.000Z",
+  "id": "tiDSLiiJcR19oxBC",
+  "name": "Update Closings On Sheets",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Receives a GET from https://app.gohighlevel.com/location/OdBkmLwj71bDV4B1gYi9/workflow/c05b350c-9db1-4fd5-abb5-048fb0ea3919 to update closings on https://docs.google.com/spreadsheets/d/1GhPvbGfeCO7QLxRvgF_UI8zO0fk0OVC9W1TDBVQ6mn8/edit?gid=1495598965#gid=1495598965",
+        "height": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        -256
+      ],
+      "typeVersion": 1,
+      "id": "63bf23f2-ccf2-44a3-b000-cd09d8c3e6ee",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "path": "7cc6fd31-6197-4adf-8bfd-d9f5d3f629af",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -176,
+        160
+      ],
+      "id": "e2793400-3298-449e-9eeb-26e9d4a9862a",
+      "name": "Webhook",
+      "webhookId": "7cc6fd31-6197-4adf-8bfd-d9f5d3f629af"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1GhPvbGfeCO7QLxRvgF_UI8zO0fk0OVC9W1TDBVQ6mn8/edit?gid=1495598965#gid=1495598965",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1495598965,
+          "mode": "list",
+          "cachedResultName": "Lead Tracking Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GhPvbGfeCO7QLxRvgF_UI8zO0fk0OVC9W1TDBVQ6mn8/edit#gid=1495598965"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "email",
+              "lookupValue": "={{ $json.query.email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        32,
+        160
+      ],
+      "id": "ad41c9a9-91bf-4edc-ad5a-5c31769f1762",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OEAr0f6jTzvrSqB8",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1GhPvbGfeCO7QLxRvgF_UI8zO0fk0OVC9W1TDBVQ6mn8/edit?gid=1495598965#gid=1495598965",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1495598965,
+          "mode": "list",
+          "cachedResultName": "Lead Tracking Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GhPvbGfeCO7QLxRvgF_UI8zO0fk0OVC9W1TDBVQ6mn8/edit#gid=1495598965"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "Closed": "1"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Booked Call",
+              "displayName": "Booked Call",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Showed",
+              "displayName": "Showed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Closed",
+              "displayName": "Closed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        240,
+        160
+      ],
+      "id": "91a55f7e-93a0-4add-b724-af5833d6eba5",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OEAr0f6jTzvrSqB8",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "leon-data-n8n.el1i26.easypanel.host",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "en-US,en;q=0.9",
+            "priority": "u=0, i",
+            "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "document",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-site": "none",
+            "sec-fetch-user": "?1",
+            "upgrade-insecure-requests": "1",
+            "x-forwarded-for": "186.84.89.26",
+            "x-forwarded-host": "leon-data-n8n.el1i26.easypanel.host",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "ebf172430786",
+            "x-real-ip": "186.84.89.26"
+          },
+          "params": {},
+          "query": {
+            "phone": "4075698338",
+            "email": "sergio2work@gmail.com"
+          },
+          "body": {},
+          "webhookUrl": "https://leon-data-n8n.el1i26.easypanel.host/webhook/7cc6fd31-6197-4adf-8bfd-d9f5d3f629af",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "versionId": "c5486210-4446-484d-858b-82d594318a1e",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-09-15T19:34:49.848Z",
+      "updatedAt": "2025-09-15T19:34:49.848Z",
+      "role": "workflow:owner",
+      "workflowId": "tiDSLiiJcR19oxBC",
+      "projectId": "Uvq5WhjzJzJxoVHc",
+      "project": {
+        "createdAt": "2025-08-25T15:31:14.247Z",
+        "updatedAt": "2025-09-16T00:16:21.457Z",
+        "id": "Uvq5WhjzJzJxoVHc",
+        "name": "Sergio Gonzalez <sergiog@lubaphtel.net>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-08-25T15:31:14.248Z",
+            "updatedAt": "2025-08-25T15:31:14.248Z",
+            "userId": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
+            "projectId": "Uvq5WhjzJzJxoVHc",
+            "user": {
+              "createdAt": "2025-08-25T15:31:12.351Z",
+              "updatedAt": "2026-01-20T01:15:47.000Z",
+              "id": "e896dc5f-f8eb-4b1a-bdf2-61b2fcfc1555",
+              "email": "sergiog@lubaphtel.net",
+              "firstName": "Sergio",
+              "lastName": "Gonzalez",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2025-08-25T15:32:30.088Z",
+                "personalization_survey_n8n_version": "1.79.3"
+              },
+              "settings": {
+                "userActivated": true,
+                "firstSuccessfulWorkflowId": "HeLM2xgJUp6xIhzW",
+                "userActivatedAt": 1756218253276,
+                "npsSurvey": {
+                  "responded": true,
+                  "lastShownAt": 1759238614945
+                },
+                "easyAIWorkflowOnboarded": true
+              },
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2026-01-19",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": []
+}
